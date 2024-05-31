@@ -1,0 +1,51 @@
+<header>
+    <!-- 로그인 가입 버튼 -->
+    <div class="header-top">
+        <div class="container">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <a class="col-1 login-join-label">로그인</a>
+                    <a class="col-1 login-join-label">회원가입</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색바 -->
+    <div class="header-middle">
+        <div class="container header-middle-con">
+
+            <div class="col-2">
+                <img class="header-logo" src="/images/renbook_logo.png">
+            </div>
+
+            <div class="col">
+                <form method="get" class="searchbar">
+                    <input id="keyword" name="keyword" type="text" class="form-control" placeholder="제목, 작가, 출판사 를 검색해 보세요.">
+                    <button class="btn" type="submit" th:onclick="|location.href='@{/search(keyword=${keyword})}'|">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search"
+                             viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 네비게이션 탭 -->
+    <div class="header-bottom">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link">베스트 도서</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">신간 도서</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</header>

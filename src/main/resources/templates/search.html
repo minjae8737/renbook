@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+
+    <!-- 부트스트랩5 -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- css추가 -->
+    <link href="/css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!--<div th:replace ="header.html"></div>-->
+<header>
+    <!-- 로그인 가입 버튼 -->
+    <div class="header-top">
+        <div class="container">
+            <div class="container">
+                <div class="row justify-content-end">
+                    <a class="col-1 login-join-label">로그인</a>
+                    <a class="col-1 login-join-label">회원가입</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색바 -->
+    <div class="header-middle">
+        <div class="container header-middle-con">
+
+            <div class="col-2">
+                <img class="header-logo" src="/images/renbook_logo.png">
+            </div>
+
+            <div class="col">
+                <form method="get" class="searchbar">
+                    <input id="keyword" name="keyword" type="text" class="form-control" placeholder="제목, 작가, 출판사 를 검색해 보세요.">
+                    <button class="btn" type="submit" th:onclick="|location.href='@{/search(keyword=${keyword})}'|">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search"
+                             viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 네비게이션 탭 -->
+    <div class="header-bottom">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link">베스트 도서</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">신간 도서</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</header>
+
+<main class="main-con">
+    <!--검색 목록-->
+    <section>
+        <div class="container">
+            <!--헤더-->
+            <div class="search-top">
+                <div class="search-top-label">전체 00 건</div>
+            </div>
+            <!-- 도서 목록 -->
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
+                <div class="col book-item-wrapper" th:each="findBook : ${findBooks}">
+                    <div class="card text-center">
+                        <img class="card-img-top" src="/images/renbook_cover.png">
+                        <div class="card-body">
+                            <span class="book-label-category">장르</span>
+                            <a class="book-label-link" th:href="@{/detail/{bookId}(bookId=${findBook.bookId})}">
+                                <h3 class="card-title book-label-title" th:text="${findBook.bookTitle}">제목제목제목제목제목제목제목제목제목제목제목제목제목제목</h3>
+                            </a>
+                            <span class="book-label-author" th:text="${findBook.author}">저자</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>페이징</div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-con">
+        <div class="container">
+            <div class="">
+                <img class="row footer-logo" src="/images/renbook_logo.png">
+                <span class="row pt-3">이메일 : minjae8737@gmail.com</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
