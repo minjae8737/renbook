@@ -1,6 +1,8 @@
 package com.example.renbook.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -10,9 +12,13 @@ import java.time.LocalDateTime;
 @Data
 public class Member {
 
-    @Id
-    private String memberId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memberNo;
 
+    private String memberId;
     private String password;
     private LocalDateTime joinDate;
+
+    public Member() {
+    }
 }

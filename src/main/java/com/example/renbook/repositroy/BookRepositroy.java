@@ -17,7 +17,7 @@ public class BookRepositroy {
     private final EntityManager entityManager;
 
     public List<Book> findBestBooks() {
-        String jpql = "SELECT b FROM Book b JOIN Rental r ON b.bookId = r.bookId GROUP BY b.bookId ORDER BY COUNT (r.rentalId) DESC";
+        String jpql = "SELECT b FROM Book b JOIN Rental r ON b.bookNo = r.bookNo GROUP BY b.bookNo ORDER BY COUNT (r.rentalNo) DESC";
 
         return entityManager.createQuery(jpql, Book.class).getResultList();
     }

@@ -15,11 +15,14 @@ public class Rental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rentalId;
+    private Long rentalNo;
 
-    private String memberId;     //멤버 id
-    private Long bookId;         //도서 id
+    private Long memberNo;     //멤버 id
+    private Long bookNo;         //도서 id
     private LocalDateTime rentalDate; //대여날짜
     private LocalDateTime returnDate; //반납날짜
     private String isRental;          //반납유무 'Y' or 'N'
+
+    public Rental() {
+    }
 }

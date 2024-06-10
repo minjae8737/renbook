@@ -13,9 +13,6 @@
 </head>
 <body>
 
-<!--<div th:replace ="header.html"></div>-->
-
-
 <header>
     <!-- 로그인 가입 버튼 -->
     <div class="header-top">
@@ -72,56 +69,29 @@
 </header>
 
 <main class="main-con">
-
     <section>
-        <div class="container">
-            <div class="book-ditail-con row">
-                <!--이미지-->
-                <div class="col">
-                    <img class="book-detail-img" src="/images/renbook_cover.png">
-                </div>
-                <div class="col">
-                    <!--도서 정보-->
-                    <div class="book-detail-info divider-thin">
-                        <div class="divider-thin">
-                            <h2 class="book-detail-info-title" th:text="${findBook.bookTitle}">제목</h2>
-                        </div>
-                        <div class="book-detail-info-con row">
-                            <span class="col">ISBN</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.isbn}">ISBN</span>
-                        </div>
-                        <div class="book-detail-info-con row">
-                            <span class="col">글쓴이</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.author}">글쓴이</span>
-                        </div>
-                        <div class="book-detail-info-con row">
-                            <span class="col">출판사</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.publisher}">출판사</span>
-                        </div>
-                        <div class="book-detail-info-con row">
-                            <span class="col">출간일</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.publicationDate}">출간일</span>
-                        </div>
-                    </div>
-
-                    <!--대여 정보-->
-                    <div class="book-rental-con col">
-                        <!--대여 버튼-->
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary  btn-lg">대여하기</button>
-                            <button class="btn btn-success btn-lg">예약하기</button>
-                        </div>
-                    </div>
-                </div>
-
-
+        <div class="container join-con">
+            <div class="join-header">
+                <a class="d-flex justify-content-center" href="main.html" th:href="@{/}">
+                    <img class="login-img-logo" src="/images/renbook_logo.png">
+                </a>
             </div>
-
-
+            <div class="">
+                <form method="post" th:object="${loginDto}">
+                    <div class="d-grid gap-2">
+                        <input id="memberId" name="memberId" class="form-control" th:field="*{memberId}"  placeholder="아이디를 입력해 주세요.">
+                        <div class="member-info-error" th:errors="*{memberId}">에러</div>
+                        <input type="password" id="password" name="password" class="form-control" th:field="*{password}"  placeholder="비밀번호를 입력해 주세요.">
+                        <div class="member-info-error" th:errors="*{password}">에러</div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" type="submit">로그인</button>
+                        <button class="btn btn-success" type="button" th:onclick="|location.href='@{/join}'|">회원가입</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
-
-
 </main>
 
 <footer>

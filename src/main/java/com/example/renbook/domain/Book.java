@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Book {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookId;
+    private Long bookNo;
 
     private String bookTitle;    //책제목
     private String isbn;         //isbn
@@ -21,4 +21,6 @@ public class Book {
     private String publisher;    //출판사
     private LocalDate publicationDate; //출판일
 
+    public Book() {
+    }
 }

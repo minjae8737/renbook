@@ -4,8 +4,8 @@
         <div class="container">
             <div class="container">
                 <div class="row justify-content-end">
-                    <a class="col-1 login-join-label">로그인</a>
-                    <a class="col-1 login-join-label">회원가입</a>
+                    <a class="col-1 login-join-label" href="login.html" th:href="@{/login}">로그인</a>
+                    <a class="col-1 login-join-label" href="join.html" th:href="@{/join}">회원가입</a>
                 </div>
             </div>
         </div>
@@ -16,12 +16,15 @@
         <div class="container header-middle-con">
 
             <div class="col-2">
-                <img class="header-logo" src="/images/renbook_logo.png">
+                <a class="d-flex justify-content-center" href="main.html" th:href="@{/}">
+                    <img class="header-logo" src="/images/renbook_logo.png">
+                </a>
             </div>
 
             <div class="col">
-                <form method="get" class="searchbar">
-                    <input id="keyword" name="keyword" type="text" class="form-control" placeholder="제목, 작가, 출판사 를 검색해 보세요.">
+                <form method="get" action="/search" class="searchbar">
+                    <input id="keyword" name="keyword" type="text" class="form-control"
+                           placeholder="제목, 작가, 출판사 를 검색해 보세요.">
                     <button class="btn" type="submit" th:onclick="|location.href='@{/search(keyword=${keyword})}'|">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-search"
