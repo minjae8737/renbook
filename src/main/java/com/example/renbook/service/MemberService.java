@@ -26,7 +26,11 @@ public class MemberService {
         member.setPassword(memberDto.getPassword());
         member.setJoinDate(LocalDateTime.now());
 
-        memberRepository.join(member);
+        Optional<Member> optionalMember = memberRepository.findByMemberId(member.getMemberId());
+        if (optionalMember.isEmpty()) {
+            memberRepository.join(member);
+        }
+
     }
 
     public Member login(LoginDto loginDto) {
@@ -46,8 +50,8 @@ public class MemberService {
     }
 
     private static boolean canLogin(LoginDto loginDto, Member loginedMember) {
-        return loginedMember.getMemberId().equals(loginDto.getMemberId()) && loginedMember.getPassword().equals(loginDto.getPassword());
+        return loginedMember.getMemberId().equals(loginDto.getMemberId())
+                && loginedMember.getPassword().equals(loginDto.getPassword());
     }
-
 
 }

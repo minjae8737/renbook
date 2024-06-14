@@ -4,6 +4,7 @@ import com.example.renbook.domain.LoginDto;
 import com.example.renbook.domain.Member;
 import com.example.renbook.domain.MemberDto;
 import com.example.renbook.service.MemberService;
+import com.example.renbook.web.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -97,8 +99,19 @@ public class MemberController {
         }
 
         log.info("login susses");
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginedMember);
 
         return "redirect:" + preUrl;
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/";
+    }
 }

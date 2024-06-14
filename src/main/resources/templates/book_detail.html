@@ -32,7 +32,6 @@
     <!-- 검색바 -->
     <div class="header-middle">
         <div class="container header-middle-con">
-
             <div class="col-2">
                 <a class="d-flex justify-content-center" href="main.html" th:href="@{/}">
                     <img class="header-logo" src="/images/renbook_logo.png">
@@ -65,6 +64,9 @@
                 <li class="nav-item">
                     <a class="nav-link">신간 도서</a>
                 </li>
+                <li class="nav-item ms-auto">
+                    <a class="nav-link" th:href="@{/rental}">대여 목록</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -80,27 +82,27 @@
                 <div class="col">
                     <img class="book-detail-img" src="/images/renbook_cover.png">
                 </div>
-                <div class="col">
+                <div class="col" th:object="${findBook}">
                     <!--도서 정보-->
-                    <div class="book-detail-info divider-thin">
+                    <div class="book-detail-info divider-thin" >
                         <div class="divider-thin">
-                            <h2 class="book-detail-info-title" th:text="${findBook.bookTitle}">제목</h2>
+                            <h2 class="book-detail-info-title" th:text="*{bookTitle}">제목</h2>
                         </div>
                         <div class="book-detail-info-con row">
                             <span class="col">ISBN</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.isbn}">ISBN</span>
+                            <span class="text-end col book-detail-info-label" th:text="*{isbn}">ISBN</span>
                         </div>
                         <div class="book-detail-info-con row">
                             <span class="col">글쓴이</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.author}">글쓴이</span>
+                            <span class="text-end col book-detail-info-label" th:text="*{author}">글쓴이</span>
                         </div>
                         <div class="book-detail-info-con row">
                             <span class="col">출판사</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.publisher}">출판사</span>
+                            <span class="text-end col book-detail-info-label" th:text="*{publisher}">출판사</span>
                         </div>
                         <div class="book-detail-info-con row">
                             <span class="col">출간일</span>
-                            <span class="text-end col book-detail-info-label" th:text="${findBook.publicationDate}">출간일</span>
+                            <span class="text-end col book-detail-info-label" th:text="*{publicationDate}">출간일</span>
                         </div>
                     </div>
 
@@ -108,7 +110,7 @@
                     <div class="book-rental-con col">
                         <!--대여 버튼-->
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary  btn-lg">대여하기</button>
+                            <button class="btn btn-primary btn-lg" th:onclick="|location.href='@{/rental/{bookNo}(bookNo=*{bookNo})}'|">대여하기</button>
                             <button class="btn btn-success btn-lg">예약하기</button>
                         </div>
                     </div>
