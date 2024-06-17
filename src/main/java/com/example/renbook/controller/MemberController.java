@@ -104,7 +104,7 @@ public class MemberController {
         return "redirect:" + preUrl;
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 

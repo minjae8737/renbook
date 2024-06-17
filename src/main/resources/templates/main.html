@@ -22,8 +22,13 @@
         <div class="container">
             <div class="container">
                 <div class="row justify-content-end">
-                    <a class="col-1 login-join-label" href="login.html" th:href="@{/login}">로그인</a>
-                    <a class="col-1 login-join-label" href="join.html" th:href="@{/join}">회원가입</a>
+                    <div class="col-auto" th:if="${loginMember == null}">
+                        <a class="login-join-label me-3" href="login.html" th:href="@{/login}">로그인</a>
+                        <a class="login-join-label" href="join.html" th:href="@{/join}">회원가입</a>
+                    </div>
+                    <div class="col-auto" th:if="${loginMember !=null}">
+                        <a class="login-join-label" href="main.html" th:href="@{/logout}">로그아웃</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,7 +97,8 @@
                         <div class="card-body">
                             <span class="book-label-title" th:text="장르">장르</span>
                             <a class="book-label-link" th:href="@{/detail/{bookNo}(bookNo=${bestBook.bookNo})}">
-                                <h3 class="card-title book-label-title" th:text="${bestBook.bookTitle}">제목제목제목제목제목제목제목제목제목제목제목제목제목제목</h3>
+                                <h3 class="card-title book-label-title" th:text="${bestBook.bookTitle}">
+                                    제목제목제목제목제목제목제목제목제목제목제목제목제목제목</h3>
                             </a>
                             <span class="book-label-author" th:text="${bestBook.author}">저자</span>
                         </div>
@@ -120,7 +126,8 @@
                         <div class="card-body">
                             <span class="book-label-category" th:text="장르">장르</span>
                             <a class="book-label-link" th:href="@{/detail/{bookNo}(bookNo=${newBook.bookNo})}">
-                                <h3 class="card-title book-label-title" th:text="${newBook.bookTitle}">제목제목제목제목제목제목제목제목제목제목제목제목제목제목</h3>
+                                <h3 class="card-title book-label-title" th:text="${newBook.bookTitle}">
+                                    제목제목제목제목제목제목제목제목제목제목제목제목제목제목</h3>
                             </a>
                             <span class="book-label-author" th:text="${newBook.author}">저자</span>
                         </div>

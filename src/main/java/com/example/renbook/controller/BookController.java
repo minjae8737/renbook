@@ -41,13 +41,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword, @SessionAttribute(name = "loginMember", required = false) Member loginMember, Model model) {
-
-        if (loginMember == null) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("loginMember", loginMember);
-        }
+    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword,  Model model) {
 
         log.info("keyword = {}", keyword);
         List<Book> findBooks = bookService.searchByKeyword(keyword);
