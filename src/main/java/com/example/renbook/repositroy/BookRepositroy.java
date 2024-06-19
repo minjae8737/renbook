@@ -1,14 +1,11 @@
 package com.example.renbook.repositroy;
 
-import com.example.renbook.domain.Book;
-import com.example.renbook.domain.Rental;
-import com.example.renbook.domain.RentalDto;
+import com.example.renbook.domain.*;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,12 +67,32 @@ public class BookRepositroy {
                 .getResultList();
     }
 
-    public void rentBookByBookNo(Rental rental) {
+    public void saveRent(Rental rental) {
         entityManager.persist(rental);
     }
 
-    public void returnBook(Rental rental) {
+    public void updateRental(Rental rental) {
         entityManager.merge(rental);
     }
 
+    public List<HeartDto> findHeartByMemberNo(long memberNo) {
+        String jpql = "SELECT new com.example.renbook.domain.HeartDto(h.heartNo, h.bookNo, h.bookNo, b.bookTitle, b.isbn, b.author, b.publisher, b.publicationDate, r.isRental) " +
+                "FROM Heart h " +
+                "JOIN Book b ON h.bookNo = b.bookNo " +
+                "LEFT JOIN Rental r ON h.bookNo = r.bookNo AND r.rentalNo = (SELECT MAX (r2.rentalNo) FROM Rental r2 WHERE r2.bookNo = h.bookNo)" +
+                "WHERE h.memberNo = :memberNo AND h.isDeleted = false ";
+
+        return entityManager.createQuery(jpql, HeartDto.class)
+                .setParameter("memberNo", memberNo)
+                .getResultList();
+    }
+
+    public void saveHeart(Heart heart) {
+        entityManager.persist(heart);
+    }
+
+    public void deleteHeart(long heartNo) {
+        Heart findHeart = entityManager.find(Heart.class, heartNo);
+        findHeart.setDeleted(true);
+    }
 }

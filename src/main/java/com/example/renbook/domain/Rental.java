@@ -20,7 +20,7 @@ public class Rental {
     private Long bookNo;         //도서 id
     private LocalDateTime rentalDate; //대여날짜
     private LocalDateTime returnDate; //반납날짜
-    private String isRental;          //반납유무 'Y' or 'N'
+    private String isRental;          //대여유무 'Y' or 'N'
     private Integer extensionCount;      //연장횟수 최대 한번 연장가능 (+7일)
 
     public Rental() {

@@ -17,6 +17,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.info("로그인 인증 requestURI={}", requestURI);
 
         HttpSession session = request.getSession(false);
+        session.setAttribute("requestURI", requestURI);
+
         if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
             log.info("비회원 사용자 요청");
 
@@ -28,13 +30,4 @@ public class LoginInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-    }
 }

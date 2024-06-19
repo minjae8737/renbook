@@ -1,9 +1,6 @@
 package com.example.renbook.service;
 
-import com.example.renbook.domain.Book;
-import com.example.renbook.domain.Member;
-import com.example.renbook.domain.Rental;
-import com.example.renbook.domain.RentalDto;
+import com.example.renbook.domain.*;
 import com.example.renbook.repositroy.BookRepositroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +41,7 @@ public class BookService {
 
     public List<RentalDto> getRentalBooksByMemberNo(Member loginMember) {
         List<RentalDto> rentalList = bookRepositroy.findRentalBooksByMemberNo(loginMember.getMemberNo());
-        log.info("rentalList.size()={}",rentalList.size());
+        log.info("rentalList.size()={}", rentalList.size());
         return rentalList;
     }
 
@@ -63,7 +60,19 @@ public class BookService {
             rental.setIsRental("Y");
             rental.setExtensionCount(0);
 
-            bookRepositroy.rentBookByBookNo(rental);
+            bookRepositroy.saveRent(rental);
+
+            //대여후 heart 목록이 있다면 제거
+            List<HeartDto> hearBooktList = bookRepositroy.findHeartByMemberNo(loginMember.getMemberNo());
+
+            if (hearBooktList.isEmpty() == false) {
+                Optional<HeartDto> heartDtoOptional = hearBooktList.stream().filter(h -> h.getBookNo() == bookNo).findAny();
+                if (heartDtoOptional.isPresent()) {
+                    log.info("delete heartList={}", heartDtoOptional.get().getBookTitle());
+                    bookRepositroy.deleteHeart(heartDtoOptional.get().getHeartNo());
+                }
+            }
+
             return true;
         }
 
@@ -89,7 +98,45 @@ public class BookService {
         findRental.setIsRental("N");
         findRental.setReturnDate(LocalDateTime.now());
 
-        bookRepositroy.returnBook(findRental);
+        bookRepositroy.updateRental(findRental);
         return true;
+    }
+
+    public List<HeartDto> getHeartBooksByMemberNo(Member loginMember) {
+        List<HeartDto> heartBookList = bookRepositroy.findHeartByMemberNo(loginMember.getMemberNo());
+        log.info("heartBookList.size()={}", heartBookList.size());
+
+        for (HeartDto heartBook : heartBookList) {
+            log.info("heartBook getHeartNo={} getBookNo={} getBookTitle={} getIsRental={} ", heartBook.getHeartNo(), heartBook.getBookNo(), heartBook.getBookTitle(), heartBook.getIsRental());
+        }
+
+        return heartBookList;
+    }
+
+    public void addHeart(Member loginMember, long bookNo) {
+
+        boolean isDuplication = false;
+
+        List<HeartDto> heartBookList = bookRepositroy.findHeartByMemberNo(loginMember.getMemberNo());
+
+        //중복된 도서인지 체크
+        if (heartBookList.isEmpty() == false) {
+            isDuplication = heartBookList.stream().allMatch(h -> h.getBookNo() == bookNo);
+            log.info("isDuplication={}", isDuplication);
+        }
+
+        //중복된 도서일 경우 리턴
+        if (isDuplication) return;
+
+        Heart heart = new Heart();
+        heart.setBookNo(bookNo);
+        heart.setMemberNo(loginMember.getMemberNo());
+        heart.setDeleted(false);
+
+        bookRepositroy.saveHeart(heart);
+    }
+
+    public void deleteHeart(long heartNo) {
+        bookRepositroy.deleteHeart(heartNo);
     }
 }

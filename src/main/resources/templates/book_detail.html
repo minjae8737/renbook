@@ -69,8 +69,12 @@
                 <li class="nav-item">
                     <a class="nav-link">신간 도서</a>
                 </li>
-                <li class="nav-item ms-auto">
+                <li class="nav-item me-auto"></li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/rental}">대여 목록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/heart}">찜목록</a>
                 </li>
             </ul>
         </div>
@@ -116,7 +120,7 @@
                         <!--대여 버튼-->
                         <div class="d-grid gap-2">
                             <button class="btn btn-primary btn-lg" th:onclick="|location.href='@{/rental/{bookNo}(bookNo=*{bookNo})}'|">대여하기</button>
-                            <button class="btn btn-success btn-lg">예약하기</button>
+                            <button class="btn btn-success btn-lg" th:onclick="|location.href='@{/heart/{bookNo}(bookNo=*{bookNo})}'|">찜하기</button>
                         </div>
                     </div>
                 </div>

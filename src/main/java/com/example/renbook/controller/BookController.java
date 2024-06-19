@@ -1,9 +1,11 @@
 package com.example.renbook.controller;
 
 import com.example.renbook.domain.Book;
+import com.example.renbook.domain.HeartDto;
 import com.example.renbook.domain.Member;
 import com.example.renbook.domain.RentalDto;
 import com.example.renbook.service.BookService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -41,7 +43,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword,  Model model) {
+    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
 
         log.info("keyword = {}", keyword);
         List<Book> findBooks = bookService.searchByKeyword(keyword);
@@ -54,12 +56,6 @@ public class BookController {
     @GetMapping("/rental")
     public String showRentalPage(@SessionAttribute(name = "loginMember", required = false) Member loginMember, Model model) {
 
-        if (loginMember == null) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("loginMember", loginMember);
-        }
-
         List<RentalDto> rentalList = bookService.getRentalBooksByMemberNo(loginMember);
         model.addAttribute("rentalList", rentalList);
 
@@ -68,12 +64,6 @@ public class BookController {
 
     @GetMapping("/rental/{bookNo}")
     public String rentBook(@SessionAttribute(name = "loginMember", required = false) Member loginMember, @PathVariable("bookNo") long bookNo, Model model) {
-
-        if (loginMember == null) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("loginMember", loginMember);
-        }
 
         log.info("rentbook");
         boolean isRent = bookService.rentBook(loginMember, bookNo);
@@ -87,15 +77,33 @@ public class BookController {
     @PostMapping("/return")
     public String returnBook(@SessionAttribute(name = "loginMember", required = false) Member loginMember, @RequestParam("rentalNo") long rentalNo, Model model) {
 
-        if (loginMember == null) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("loginMember", loginMember);
-        }
-
         log.info("return book");
         boolean isReturned = bookService.returnBook(loginMember, rentalNo);
 
         return "redirect:/rental";
+    }
+
+    @GetMapping("/heart")
+    public String showHeartPage(@SessionAttribute(name = "loginMember", required = false) Member loginMember, Model model) {
+
+        List<HeartDto> heartBookList = bookService.getHeartBooksByMemberNo(loginMember);
+        model.addAttribute("heartBookList", heartBookList);
+
+        return "heart";
+    }
+
+    @GetMapping("/heart/{bookNo}")
+    public String addHeart(@SessionAttribute(name = "loginMember", required = false) Member loginMember, @PathVariable("bookNo") long bookNo, Model model) {
+        bookService.addHeart(loginMember, bookNo);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/heart/delete")
+    public String deleteHeart(@RequestParam("heartNo") long heartNo) {
+
+        bookService.deleteHeart(heartNo);
+
+        return "redirect:/heart";
     }
 }
