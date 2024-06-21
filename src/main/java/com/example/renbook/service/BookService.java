@@ -25,10 +25,18 @@ public class BookService {
         return bookRepositroy.findBestBooks();
     }
 
+    public List<Book> getBestBooks(int maxResult) {
+        return bookRepositroy.findBestBooks(maxResult);
+    }
+
     public List<Book> getNewBooks() {
         LocalDate nowDate = LocalDate.now().withDayOfMonth(1);
-//        log.info("nowDate={}", nowDate);
         return bookRepositroy.findNewBooks(nowDate);
+    }
+
+    public List<Book> getNewBooks(int maxResult) {
+        LocalDate nowDate = LocalDate.now().withDayOfMonth(1);
+        return bookRepositroy.findNewBooks(nowDate, maxResult);
     }
 
     public List<Book> searchByKeyword(String keyword) {

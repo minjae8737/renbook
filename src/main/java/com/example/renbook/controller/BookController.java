@@ -22,8 +22,9 @@ public class BookController {
 
     @GetMapping
     public String showMainPage(Model model) {
-        List<Book> bestBooks = bookService.getBestBooks();
-        List<Book> newBooks = bookService.getNewBooks();
+        int maxResult = 12;
+        List<Book> bestBooks = bookService.getBestBooks(maxResult);
+        List<Book> newBooks = bookService.getNewBooks(maxResult);
 
         log.info("bestBooks size={}", bestBooks.size());
         log.info("newBooks size={}", newBooks.size());
@@ -46,14 +47,58 @@ public class BookController {
                              @RequestParam(value = "page", defaultValue = "1") int page,
                              Model model) {
         log.info("keyword = {}", keyword);
-        log.info("curPageNum={}", page);
+        log.info("curPageNum = {}", page);
 
         int pageSize = 10;
         List<Book> findBooks = bookService.searchByKeyword(keyword);
 
+        setPaging(page, model, findBooks, pageSize);
 
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("type", "default");
+
+
+        return "search";
+    }
+
+    @GetMapping("/search/best")
+    public String showSearchBestBooks(@RequestParam(value = "keyword", required = false) String keyword,
+                                      @RequestParam(value = "page", defaultValue = "1") int page,
+                                      Model model) {
+
+        log.info("keyword = {}", keyword);
+        log.info("curPageNum = {}", page);
+
+        int pageSize = 10;
+        List<Book> bestBooks = bookService.getBestBooks();
+
+        setPaging(page, model, bestBooks, pageSize);
+
+        model.addAttribute("type", "best");
+
+        return "search";
+    }
+
+    @GetMapping("/search/new")
+    public String showSearchNewBooks(@RequestParam(value = "keyword", required = false) String keyword,
+                                      @RequestParam(value = "page", defaultValue = "1") int page,
+                                      Model model) {
+        log.info("keyword = {}", keyword);
+        log.info("curPageNum = {}", page);
+
+        int pageSize = 10;
+        List<Book> bestBooks = bookService.getNewBooks();
+
+        setPaging(page, model, bestBooks, pageSize);
+
+        model.addAttribute("type", "new");
+
+        return "search";
+    }
+
+    private static void setPaging(int page, Model model, List<Book> findBooks, int pageSize) {
         int totalBooks = findBooks.size();
-        int totalPage = (int) Math.ceil((double)findBooks.size() / (double) pageSize);
+        int totalPage = (int) Math.ceil((double) findBooks.size() / (double) pageSize);
 
         //현재 page에서 보여줄 findBooks 범위
         int startBookIdx = (page - 1) * pageSize;
@@ -63,19 +108,14 @@ public class BookController {
 
         //현재 page 기준에 따라서 보여줄 page 범위
         int startPage = page < 7 ? 1 : page - 4;
-        int endPage = page + 5 < totalPage ?  page + 5 : totalPage;
+        int endPage = page + 5 < totalPage ? page + 5 : totalPage;
 
-        //페이징
-        //페이지당 40권씩 보여주기
-        model.addAttribute("keyword", keyword);
         model.addAttribute("findBooks", findBooks);
         model.addAttribute("curPage", page);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("totalBooks", totalBooks);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
-        return "search";
     }
 
     @GetMapping("/rental")

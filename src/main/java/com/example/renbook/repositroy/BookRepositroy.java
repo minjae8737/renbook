@@ -21,10 +21,22 @@ public class BookRepositroy {
         return entityManager.createQuery(jpql, Book.class).getResultList();
     }
 
+    public List<Book> findBestBooks(int maxResult) {
+        String jpql = "SELECT b FROM Book b JOIN Rental r ON b.bookNo = r.bookNo GROUP BY b.bookNo ORDER BY COUNT (r.rentalNo) DESC";
+
+        return entityManager.createQuery(jpql, Book.class).setMaxResults(maxResult).getResultList();
+    }
+
     public List<Book> findNewBooks(LocalDate date) {
         String jpql = "SELECT b FROM Book b WHERE b.publicationDate >= :date";
 
         return entityManager.createQuery(jpql, Book.class).setParameter("date", date).getResultList();
+    }
+
+    public List<Book> findNewBooks(LocalDate date, int maxResult) {
+        String jpql = "SELECT b FROM Book b WHERE b.publicationDate >= :date";
+
+        return entityManager.createQuery(jpql, Book.class).setParameter("date", date).setMaxResults(maxResult).getResultList();
     }
 
     public Optional<List<Book>> searchBooks(String keyword) {
