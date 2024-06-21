@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class BookService {
     }
 
     public List<Book> searchByKeyword(String keyword) {
-        List<Book> findBooks = bookRepositroy.searchBooks("%" + keyword + "%").orElse(null);
+        List<Book> findBooks = bookRepositroy.searchBooks("%" + keyword + "%").orElse(new ArrayList<>());
         return findBooks;
     }
 

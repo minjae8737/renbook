@@ -5,7 +5,6 @@ import com.example.renbook.domain.HeartDto;
 import com.example.renbook.domain.Member;
 import com.example.renbook.domain.RentalDto;
 import com.example.renbook.service.BookService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -43,12 +42,38 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
-
+    public String showSearch(@RequestParam(value = "keyword", required = false) String keyword,
+                             @RequestParam(value = "page", defaultValue = "1") int page,
+                             Model model) {
         log.info("keyword = {}", keyword);
+        log.info("curPageNum={}", page);
+
+        int pageSize = 10;
         List<Book> findBooks = bookService.searchByKeyword(keyword);
 
+
+        int totalBooks = findBooks.size();
+        int totalPage = (int) Math.ceil((double)findBooks.size() / (double) pageSize);
+
+        //현재 page에서 보여줄 findBooks 범위
+        int startBookIdx = (page - 1) * pageSize;
+        int endBookIdx = Math.min(findBooks.size(), (startBookIdx + pageSize));
+
+        findBooks = findBooks.subList(startBookIdx, endBookIdx);
+
+        //현재 page 기준에 따라서 보여줄 page 범위
+        int startPage = page < 7 ? 1 : page - 4;
+        int endPage = page + 5 < totalPage ?  page + 5 : totalPage;
+
+        //페이징
+        //페이지당 40권씩 보여주기
+        model.addAttribute("keyword", keyword);
         model.addAttribute("findBooks", findBooks);
+        model.addAttribute("curPage", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("totalBooks", totalBooks);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "search";
     }

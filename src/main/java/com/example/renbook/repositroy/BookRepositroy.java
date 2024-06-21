@@ -30,7 +30,9 @@ public class BookRepositroy {
     public Optional<List<Book>> searchBooks(String keyword) {
         String jpql = "SELECT b FROM Book b WHERE b.bookTitle LIKE :keyword OR b.author LIKE :keyword OR b.publisher LIKE :keyword";
 
-        List<Book> findBooks = entityManager.createQuery(jpql, Book.class).setParameter("keyword", keyword).getResultList();
+        List<Book> findBooks = entityManager.createQuery(jpql, Book.class)
+                .setParameter("keyword", keyword)
+                .getResultList();
 
         if (findBooks.isEmpty()) {
             return Optional.empty();
