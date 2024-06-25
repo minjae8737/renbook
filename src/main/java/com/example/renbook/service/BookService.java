@@ -44,8 +44,9 @@ public class BookService {
         return findBooks;
     }
 
-    public Book findBook(long bookNo) {
-        return bookRepositroy.findBookByBookNo(bookNo);
+    public BookDetailDto findBook(long bookNo) {
+        Optional<BookDetailDto> findBookDetailDto = bookRepositroy.findBookByBookNo(bookNo);
+        return findBookDetailDto.orElse(new BookDetailDto());
     }
 
     public List<RentalDto> getRentalBooksByMemberNo(Member loginMember) {

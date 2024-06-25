@@ -1,9 +1,6 @@
 package com.example.renbook.controller;
 
-import com.example.renbook.domain.Book;
-import com.example.renbook.domain.HeartDto;
-import com.example.renbook.domain.Member;
-import com.example.renbook.domain.RentalDto;
+import com.example.renbook.domain.*;
 import com.example.renbook.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +34,7 @@ public class BookController {
 
     @GetMapping("/detail/{bookNo}")
     public String showBookDetail(@PathVariable("bookNo") long bookNo, Model model) {
-        Book findBook = bookService.findBook(bookNo);
+        BookDetailDto findBook = bookService.findBook(bookNo);
         model.addAttribute("findBook", findBook);
         return "book_detail";
     }
@@ -81,8 +78,8 @@ public class BookController {
 
     @GetMapping("/search/new")
     public String showSearchNewBooks(@RequestParam(value = "keyword", required = false) String keyword,
-                                      @RequestParam(value = "page", defaultValue = "1") int page,
-                                      Model model) {
+                                     @RequestParam(value = "page", defaultValue = "1") int page,
+                                     Model model) {
         log.info("keyword = {}", keyword);
         log.info("curPageNum = {}", page);
 
@@ -133,6 +130,7 @@ public class BookController {
         log.info("rentbook");
         boolean isRent = bookService.rentBook(loginMember, bookNo);
         if (isRent == false) {
+            log.info("rentbook fail");
         }
         log.info("rentbook end");
 

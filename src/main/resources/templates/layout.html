@@ -1,4 +1,18 @@
-<header>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+
+    <!-- 부트스트랩5 -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- css추가 -->
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet">
+
+</head>
+<body>
+<header th:fragment="header">
     <!-- 로그인 가입 버튼 -->
     <div class="header-top">
         <div class="container">
@@ -61,5 +75,19 @@
             </ul>
         </div>
     </div>
-
 </header>
+
+
+<footer th:fragment="footer">
+    <div class="footer-con">
+        <div class="container">
+            <div class="">
+                <img class="row footer-logo" src="/images/renbook_logo.png">
+                <span class="row pt-3">이메일 : minjae8737@gmail.com</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

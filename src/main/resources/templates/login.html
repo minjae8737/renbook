@@ -13,71 +13,7 @@
 </head>
 <body>
 
-<header>
-    <!-- 로그인 가입 버튼 -->
-    <div class="header-top">
-        <div class="container">
-            <div class="container">
-                <div class="row justify-content-end">
-                    <div class="col-auto" th:if="${loginMember == null}">
-                        <a class="login-join-label me-3" href="login.html" th:href="@{/login}">로그인</a>
-                        <a class="login-join-label" href="join.html" th:href="@{/join}">회원가입</a>
-                    </div>
-                    <div class="col-auto" th:if="${loginMember !=null}">
-                        <a class="login-join-label" href="main.html" th:href="@{/logout}">로그아웃</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 검색바 -->
-    <div class="header-middle">
-        <div class="container header-middle-con">
-            <div class="col-2">
-                <a class="d-flex justify-content-center" href="main.html" th:href="@{/}">
-                    <img class="header-logo" src="/images/renbook_logo.png">
-                </a>
-            </div>
-
-            <div class="col">
-                <form method="get" action="/search" class="searchbar">
-                    <input id="keyword" name="keyword" type="text" class="form-control"
-                           placeholder="제목, 작가, 출판사 를 검색해 보세요.">
-                    <button class="btn" type="submit" th:onclick="|location.href='@{/search(keyword=${keyword})}'|">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search"
-                             viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- 네비게이션 탭 -->
-    <div class="header-bottom">
-        <div class="container">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link header-nav-label" th:href="@{/search/best}">베스트 도서</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link header-nav-label" th:href="@{/search/new}">신간 도서</a>
-                </li>
-                <li class="nav-item me-auto"></li>
-                <li class="nav-item">
-                    <a class="nav-link header-nav-label" th:href="@{/rental}">대여 목록</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link header-nav-label" th:href="@{/heart}">찜목록</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-</header>
+<div th:replace ="~{layout :: header}"></div>
 
 <main class="main-con">
     <section>
@@ -95,7 +31,7 @@
                         <input type="password" id="password" name="password" class="form-control" th:field="*{password}"  placeholder="비밀번호를 입력해 주세요.">
                         <div class="member-info-error" th:errors="*{password}">에러</div>
                     </div>
-                    <div class="d-grid gap-2">
+                    <div class="d-grid pt-2 gap-3">
                         <button class="btn btn-success" type="submit">로그인</button>
                         <button class="btn btn-success" type="button" th:onclick="|location.href='@{/join}'|">회원가입</button>
                     </div>
@@ -105,16 +41,7 @@
     </section>
 </main>
 
-<footer>
-    <div class="footer-con">
-        <div class="container">
-            <div class="">
-                <img class="row footer-logo" src="/images/renbook_logo.png">
-                <span class="row pt-3">이메일 : minjae8737@gmail.com</span>
-            </div>
-        </div>
-    </div>
-</footer>
+<div th:replace ="~{layout :: footer}"></div>
 
 </body>
 </html>

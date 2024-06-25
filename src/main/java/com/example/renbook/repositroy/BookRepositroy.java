@@ -2,6 +2,7 @@ package com.example.renbook.repositroy;
 
 import com.example.renbook.domain.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -53,8 +54,21 @@ public class BookRepositroy {
         }
     }
 
-    public Book findBookByBookNo(long bookNo) {
-        return entityManager.find(Book.class, bookNo);
+    public Optional<BookDetailDto> findBookByBookNo(long bookNo) {
+        String jpql = "SELECT new com.example.renbook.domain.BookDetailDto(b.bookNo, b.bookTitle, b.isbn, b.author, b.publisher, b.publicationDate, r.isRental) " +
+                "FROM Book b " +
+                "LEFT JOIN Rental r ON b.bookNo = r.bookNo " +
+                "AND r.rentalNo = (SELECT MAX (r2.rentalNo) FROM Rental r2 WHERE r2.bookNo = b.bookNo) " +
+                "WHERE b.bookNo = :bookNo";
+
+        try {
+            BookDetailDto findBookDetailDto = entityManager.createQuery(jpql, BookDetailDto.class)
+                    .setParameter("bookNo", bookNo)
+                    .getSingleResult();
+            return Optional.of(findBookDetailDto);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     public List<RentalDto> findRentalBooksByMemberNo(long memberNo) {
@@ -74,7 +88,7 @@ public class BookRepositroy {
     }
 
     public List<Rental> findRentalByBookNo(long bookNo) {
-        String jpql = "SELECT r FROM Rental r WHERE r.bookNo = :bookNo AND r.isRental = 'N'";
+        String jpql = "SELECT r FROM Rental r WHERE r.bookNo = :bookNo AND r.isRental = 'Y'";
 
         return entityManager.createQuery(jpql, Rental.class)
                 .setParameter("bookNo", bookNo)
