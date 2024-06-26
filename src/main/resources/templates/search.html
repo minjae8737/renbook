@@ -47,13 +47,13 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${curPage == 1 ? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{${'/search/' + type}(keyword=${keyword},page=${curPage - 1})}">이전</a>
+                            <a class="page-link" th:href="@{${searchType}(keyword=${keyword},page=${curPage - 1})}">이전</a>
                         </li>
                         <li th:each="pageNum : ${#numbers.sequence(startPage,endPage)}" class="page-item" th:classappend="${curPage == pageNum ? 'active' : ''}">
-                            <a class="page-link" th:text="${pageNum}" th:href="@{${'/search/' + type}(keyword=${keyword},page=${pageNum})}">1</a>
+                            <a class="page-link" th:text="${pageNum}" th:href="@{${searchType}(keyword=${keyword},page=${pageNum})}">1</a>
                         </li>
                         <li class="page-item" th:classappend="${curPage < totalPage ? '' : 'disabled'}">
-                            <a class="page-link" th:href="@{${'/search/' + type}(keyword=${keyword},page=${curPage + 1})}">다음</a>
+                            <a class="page-link" th:href="@{${searchType}(keyword=${keyword},page=${curPage + 1})}">다음</a>
                         </li>
                     </ul>
                 </nav>

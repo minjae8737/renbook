@@ -39,7 +39,7 @@ public class BookController {
         return "book_detail";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search" )
     public String showSearch(@RequestParam(value = "keyword", required = false) String keyword,
                              @RequestParam(value = "page", defaultValue = "1") int page,
                              Model model) {
@@ -52,7 +52,7 @@ public class BookController {
         setPaging(page, model, findBooks, pageSize);
 
         model.addAttribute("keyword", keyword);
-        model.addAttribute("type", "default");
+        model.addAttribute("searchType", "/search");
 
 
         return "search";
@@ -71,7 +71,7 @@ public class BookController {
 
         setPaging(page, model, bestBooks, pageSize);
 
-        model.addAttribute("type", "best");
+        model.addAttribute("searchType", "/search/best");
 
         return "search";
     }
@@ -88,7 +88,7 @@ public class BookController {
 
         setPaging(page, model, bestBooks, pageSize);
 
-        model.addAttribute("type", "new");
+        model.addAttribute("searchType", "/search/new");
 
         return "search";
     }
