@@ -1,0 +1,251 @@
+.searchbar {
+    border: 2px solid forestgreen;
+    border-radius: 8px;
+    display: flex;
+}
+
+.searchbar > .form-control {
+    border: 0;
+}
+
+/* header */
+
+.header-top {
+    padding: 10px;
+    align-items: center;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.header-logo {
+    width: auto;
+    height: 50px;
+}
+
+.header-middle-con {
+    display: flex;
+    align-items: center;
+}
+
+.login-join-label {
+    color: rgb(128, 128, 128);
+    text-decoration: unset;
+    text-align: center;
+}
+
+.header-middle {
+    padding: 15px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.header-bottom {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.header-nav-label {
+    color: rgb(128, 128, 128);
+    text-decoration: unset;
+}
+
+/* main - booklist */
+.main-con {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 55vh;
+}
+
+.book-header {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 15px;
+}
+
+.book-header-label {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.book-item-wrapper {
+    padding: 10px;
+}
+
+.book-label-category {
+    color: #808080;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-label-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.book-link-all {
+    color: rgb(128, 128, 128);
+    text-decoration: unset;
+    text-align: center;
+}
+
+.book-label-title {
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 15px;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+
+.book-label-author {
+    color: #808080;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-label-divider {
+    color: #e1e1e1;
+    height: 3px;
+    width: 1px;
+}
+
+
+
+/* search - booklist */
+
+.search-top {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.search-top-label {
+    padding: 15px;
+    font-size: 12px;
+}
+
+/* book-detail*/
+.book-detail-img {
+    width: 90%;
+    height: auto;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+}
+
+.book-ditail-con {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    align-items: center;
+}
+
+.book-detail-info {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.book-detail-info-con {
+    padding: 10px 10px 10px;
+}
+
+.divider-thin {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.divider-thick {
+    border-bottom: 5px solid #e1e1e1;
+}
+
+.book-detail-info-title {
+    font-weight: 700;
+}
+
+.book-detail-info-label {
+    color: #aaa;
+    font-size: 16px;
+}
+
+.book-rental-con {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.book-rental-info {
+
+}
+
+.book-rental-btn {
+
+}
+
+/* rental */
+
+.rental-con {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.rental-info-con {
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    align-content: center;
+}
+/* 렌북 글자색 #787878*/
+.rental-img {
+    padding: 10px;
+    width: 100%;
+    height: auto;
+}
+
+/* join */
+.join-con {
+    width: 500px;
+}
+
+.join-header {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.join-header > h3 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+join-body-label >h4 {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.join-body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* login */
+.login-img-logo {
+    width: 50%;
+    height: auto;
+}
+
+
+.member-info-error {
+    color: red;
+}
+
+/* footer */
+
+.footer-con {
+    height: 300px;
+    flex-shrink: 0;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    border-top: 1px solid #e1e1e1;
+}
+
+.footer-logo {
+    width: 300px;
+    height: auto;
+
+}
+
+.footer-title {
+    font-weight: bold;
+}
