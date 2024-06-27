@@ -52,7 +52,7 @@
                     <div class="book-rental-con col">
                         <!--대여 버튼-->
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary btn-lg" th:classappend="${findBook.isRental.equals('Y') ? 'disabled' : ''}" th:onclick="|location.href='@{/rental/{bookNo}(bookNo=*{bookNo})}'|">대여하기</button>
+                            <button class="btn btn-primary btn-lg" th:classappend="${findBook.isRental != null && findBook.isRental.equals('Y') ? 'disabled' : ''}" th:onclick="|location.href='@{/rental/{bookNo}(bookNo=*{bookNo})}'|">대여하기</button>
                             <button class="btn btn-success btn-lg" th:onclick="|location.href='@{/heart/{bookNo}(bookNo=*{bookNo})}'|">찜하기</button>
                         </div>
                     </div>
