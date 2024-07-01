@@ -22,21 +22,23 @@ public class BookService {
     private final BookRepositroy bookRepositroy;
 
     public List<Book> getBestBooks() {
-        return bookRepositroy.findBestBooks();
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        return bookRepositroy.findBestBooks(lastMonth.atStartOfDay());
     }
 
     public List<Book> getBestBooks(int maxResult) {
-        return bookRepositroy.findBestBooks(maxResult);
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        return bookRepositroy.findBestBooks(lastMonth.atStartOfDay(), maxResult);
     }
 
     public List<Book> getNewBooks() {
-        LocalDate nowDate = LocalDate.now().withDayOfMonth(1);
-        return bookRepositroy.findNewBooks(nowDate);
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        return bookRepositroy.findNewBooks(lastMonth);
     }
 
     public List<Book> getNewBooks(int maxResult) {
-        LocalDate nowDate = LocalDate.now().withDayOfMonth(1);
-        return bookRepositroy.findNewBooks(nowDate, maxResult);
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        return bookRepositroy.findNewBooks(lastMonth, maxResult);
     }
 
     public List<Book> searchByKeyword(String keyword) {

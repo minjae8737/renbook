@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,16 +17,31 @@ public class BookRepositroy {
 
     private final EntityManager entityManager;
 
-    public List<Book> findBestBooks() {
-        String jpql = "SELECT b FROM Book b JOIN Rental r ON b.bookNo = r.bookNo GROUP BY b.bookNo ORDER BY COUNT (r.rentalNo) DESC";
+    public List<Book> findBestBooks(LocalDateTime date) {
+        String jpql = "SELECT b " +
+                "FROM Book b " +
+                "JOIN Rental r ON b.bookNo = r.bookNo " +
+                "WHERE r.rentalDate >= :date " +
+                "GROUP BY b.bookNo " +
+                "ORDER BY COUNT (r.rentalNo) DESC";
 
-        return entityManager.createQuery(jpql, Book.class).getResultList();
+        return entityManager.createQuery(jpql, Book.class)
+                .setParameter("date", date)
+                .getResultList();
     }
 
-    public List<Book> findBestBooks(int maxResult) {
-        String jpql = "SELECT b FROM Book b JOIN Rental r ON b.bookNo = r.bookNo GROUP BY b.bookNo ORDER BY COUNT (r.rentalNo) DESC";
+    public List<Book> findBestBooks(LocalDateTime date, int maxResult) {
+        String jpql = "SELECT b " +
+                "FROM Book b " +
+                "JOIN Rental r ON b.bookNo = r.bookNo " +
+                "WHERE r.rentalDate >= :date " +
+                "GROUP BY b.bookNo " +
+                "ORDER BY COUNT (r.rentalNo) DESC";
 
-        return entityManager.createQuery(jpql, Book.class).setMaxResults(maxResult).getResultList();
+        return entityManager.createQuery(jpql, Book.class)
+                .setParameter("date", date)
+                .setMaxResults(maxResult)
+                .getResultList();
     }
 
     public List<Book> findNewBooks(LocalDate date) {
