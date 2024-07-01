@@ -1,26 +1,20 @@
 # 도서 대여 서비스 RenBook
 
----
 
 <p align="center">
-<img src="/Users/aljae/Study/RenBook/renbook/src/main/resources/static/images/renbook_logo.png" width="300px" alt="renbook"><br/>
+<img src="renbook_logo.png" width="300px" alt="renbook"><br/>
 </p>
 
 
 개발기간 : 2024.05 ~ 2024.06
-
 ---
 
 # 1. 개발 환경
-
----
 
 Front : `BootStrap5` `CSS`  
 Backend : `Spring` `Jpa` `MySql`
 
 # 2. 주요 기능
-
----
 
 - `베스트 도서`와 `신간 도서` 표시
   - 매월 대여 횟수로 베스트 도서 선정
@@ -37,6 +31,26 @@ Backend : `Spring` `Jpa` `MySql`
 - 제목, 작가, 출판사를 검색하여 `도서검색` 가능
 
 
-# 3.~~
+# 3. 스크린 샷
+- 메인 화면
+<img src="메인 화면.png" alt="renbook">
+- 로그인 화면
+<img src="로그인 화면.png" alt="renbook">
+- 도서 상세 정보 화면
+<img src="도서 상세 정보 화면.png" alt="renbook">
+- 대여 목록 화면
+<img src="대여 목록 화면.png" alt="renbook">
+- 검색 화면
+<img src="검색 화면.png" alt="renbook">
 
----
+
+# 4. ERD
+<img src="ERD.png" alt="renbook">
+
+# 5. 느낀점
+- 이번 프로젝트에서는 `Mysql` `AWS` 를 적용해보았다.
+- `AWS` 는 특히 매번 로컬에서만 작동 시키던 프로젝트를 외부에서 구동해본 경험이 되었다.
+  - git pull 하던 중 EC2 인스턴스에서 mysql을 구동한뒤 ./gradlew build 를 하면 계속 인스턴스가 멈춰서 재부팅을 자주했다.
+  - mysql을 구동하지않고 빌드한 뒤 mysql을 구동하고 프로젝트를 시작하니 프로젝트가 잘 동작하였다.
+  - EC2 인스턴스의 사양이 부족한건지 아직 원인은 잘모르겠다.
+- 저번 프로젝트에서 `CSS` `Bootstrap5` 에 대해 적용해보았지만 이번 프로젝트에서도 시간을 조금 잡아먹은 것 같다.
